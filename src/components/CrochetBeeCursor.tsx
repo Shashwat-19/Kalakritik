@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 export default function CrochetBeeCursor() {
  const ref=useRef<HTMLDivElement>(null);
- useEffect(()=>{ const el=ref.current; if(!el) return; const media=matchMedia('(min-width: 641px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) and (forced-colors: none)'); let frame=0; let x=0,y=0, px=0,py=0,active=false,hover=false,click=0; const dots=Array.from(el.querySelectorAll<HTMLElement>('.trail')); const history=Array.from({length:12},()=>({x:0,y:0}));
+ useEffect(()=>{ const el=ref.current; if(!el) return; const media=matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) and (forced-colors: none)'); let frame=0; let x=0,y=0, px=0,py=0,active=false,hover=false,click=0; const dots=Array.from(el.querySelectorAll<HTMLElement>('.trail')); const history=Array.from({length:12},()=>({x:0,y:0}));
  const restore=()=>{cancelAnimationFrame(frame);frame=0;active=false; document.documentElement.classList.remove('bee-enabled'); el.style.opacity='0';};
  const move=(e:PointerEvent)=>{if(!media.matches || e.pointerType!=='mouse') {restore();return;} if((e.target as HTMLElement).closest('input,textarea,[contenteditable],p,h1,h2,h3')) {restore();return;} x=e.clientX;y=e.clientY;if(!active){px=x;py=y;history.fill({x,y});}active=true;hover=!!(e.target as HTMLElement).closest('a,button'); document.documentElement.classList.add('bee-enabled');el.style.opacity='1';if(!frame)frame=requestAnimationFrame(tick);};
  const down=()=>{click=performance.now();};
